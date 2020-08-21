@@ -1,0 +1,429 @@
+<div style="margin-left: 10px;">
+  <div class="table-responsive">
+    <div style="display: none;" #error id="error"></div>
+    <table #myTable class="table table-hover">
+      <thead>
+        <tr>
+          <th class="h1 header-text">Sl NO</th>
+          <th class="h2 header-text">Name</th>
+          <th class="h3 header-text">Address</th>
+          <th class="h4 header-text">City</th>
+          <th class="h5 header-text">Package</th>
+          <th class="h6 header-text">Trainer Preference</th>
+          <th class="h7 header-text">Phone</th>
+        </tr>
+      </thead>
+      <tbody *ngFor="let friend of friends; let i = index">
+        <tr #row>
+          <td>{{ i + 1 }}</td>
+          <td>{{ friend.firstname + " " + friend.lastname }}</td>
+          <td>{{ friend.streetaddress }}</td>
+          <td>{{ friend.city }}</td>
+          <td>{{ friend.packages }}</td>
+          <td>{{ friend.trainerpreference }}</td>
+          <td>{{ friend.phonenumber }}</td>
+          <td>
+            <button
+              (click)="onEditCliked(friend)"
+              data-toggle="modal"
+              data-target="#exampleModal"
+              class="btn"
+            >
+              <i class="fa fa-pencil"></i>
+            </button>
+          </td>
+          <td>
+            <button class="btn">
+              <i
+                (click)="deleteAppointment(i - 1, friend.id)"
+                class="fa fa-trash"
+              ></i>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+<div
+  class="modal fade"
+  id="exampleModal"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="myModal"
+  aria-hidden="true"
+>
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="myModal">Edit Appointment</h5>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div style="margin-left: 10px;">
+          <form [formGroup]="editForm" (ngSubmit)="onSubmit()" novalidate>
+            <div class="form-group">
+              <label for="exampleInputfirstname">First Name</label>
+              <input
+                autofocus
+                type="text"
+                class="form-control"
+                formControlName="firstname"
+                placeholder="First Name"
+              />
+              <small
+                class="form-text text-warning"
+                *ngIf="
+                  editForm.controls.firstname.touched &&
+                  editForm.controls.firstname.errors?.required
+                "
+              >
+                Please enter first name.!
+              </small>
+              <small
+                class="form-text text-danger"
+                *ngIf="
+                  editForm.controls.firstname.touched &&
+                  editForm.controls.firstname.value > 0 &&
+                  editForm.controls.firstname.invalid
+                "
+              >
+                Please enter valid first name. !
+              </small>
+            </div>
+            <div class="form-group">
+              <label for="lastname">Last Name</label>
+              <input
+                type="text"
+                class="form-control"
+                formControlName="lastname"
+                placeholder="Last Name"
+              />
+              <small
+                class="form-text text-warning"
+                *ngIf="
+                  editForm.controls.lastname.touched &&
+                  editForm.controls.lastname.errors?.required
+                "
+              >
+                Please enter last name.!
+              </small>
+              <small
+                class="form-text text-danger"
+                *ngIf="
+                  editForm.controls.lastname.touched &&
+                  editForm.controls.lastname.value > 0 &&
+                  editForm.controls.lastname.invalid
+                "
+              >
+                Please enter valid last name. !
+              </small>
+            </div>
+            <div class="form-group">
+              <label for="age">Age</label>
+              <input
+                type="number"
+                class="form-control"
+                formControlName="age"
+                placeholder="Age"
+              />
+              <small
+                class="form-text text-warning"
+                *ngIf="
+                  editForm.controls.age.touched &&
+                  editForm.controls.age.errors?.required
+                "
+                >` Please enter age.!
+              </small>
+              <small
+                class="form-text text-danger"
+                *ngIf="
+                  (editForm.controls.age.touched &&
+                    editForm.controls.age.invalid &&
+                    editForm.controls.age.errors?.min) ||
+                  editForm.controls.age.errors?.max
+                "
+              >
+                Age less than 18 or more than 60 is not allowed . !
+              </small>
+            </div>
+            <div class="form-group">
+              <label for="phone">Phone Number</label>
+              <input
+                type="text"
+                class="form-control"
+                formControlName="phonenumber"
+                placeholder="Phone Number"
+              />
+              <small
+                class="form-text text-warning"
+                *ngIf="
+                  editForm.controls.phonenumber.touched &&
+                  editForm.controls.phonenumber.errors?.required
+                "
+              >
+                Please enter phone number.!
+              </small>
+            </div>
+            <div class="form-group">
+              <label for="email">Email</label>
+              <input
+                type="email"
+                class="form-control"
+                formControlName="email"
+                placeholder="Email"
+              />
+              <small
+                class="form-text text-warning"
+                *ngIf="
+                  editForm.controls.email.touched &&
+                  editForm.controls.email.errors?.required
+                "
+              >
+                Please enter email.!
+              </small>
+              <small
+                class="form-text text-danger"
+                *ngIf="
+                  editForm.controls.email.touched &&
+                  editForm.controls.email.errors?.email
+                "
+              >
+                Please enter valid email. !
+              </small>
+            </div>
+
+            <fieldset class="border p-2">
+              <legend class="w-auto">Address</legend>
+              <div class="form-group">
+                <label for="streetaddress">Street Address</label>
+                <input
+                  type="text"
+                  placeholder="Street address"
+                  formControlName="streetaddress"
+                  class="form-control"
+                />
+                <small
+                  class="form-text text-warning"
+                  *ngIf="
+                    editForm.controls.streetaddress.touched &&
+                    editForm.controls.streetaddress.errors?.required
+                  "
+                  >Please enter street address</small
+                >
+              </div>
+
+              <div class="form-group">
+                <label for="city">City</label>
+                <input
+                  type="text"
+                  placeholder="City"
+                  formControlName="city"
+                  class="form-control"
+                />
+                <small
+                  class="form-text text-warning"
+                  *ngIf="
+                    editForm.controls.city.touched &&
+                    editForm.controls.city.errors?.required
+                  "
+                  >Please enter City.!
+                </small>
+                <small
+                  class="form-text text-danger"
+                  *ngIf="
+                    editForm.controls.city.touched &&
+                    editForm.controls.city.value > 0 &&
+                    editForm.controls.city.invalid
+                  "
+                >
+                  Please enter valid city. !
+                </small>
+              </div>
+              <div class="form-group">
+                <label for="pincode">Pincode</label>
+                <input
+                  type="text"
+                  placeholder="Pincode"
+                  formControlName="pincode"
+                  class="form-control"
+                />
+                <small
+                  class="form-text text-warning"
+                  *ngIf="
+                    editForm.controls.pincode.touched &&
+                    editForm.controls.pincode.errors?.required
+                  "
+                  >Please enter pincode .!
+                </small>
+                <small
+                  class="form-text text-danger"
+                  *ngIf="
+                    editForm.controls.pincode.touched &&
+                    editForm.controls.pincode.value > 0 &&
+                    editForm.controls.pincode.hasError('pattern')
+                  "
+                >
+                  Invalid pin code. !
+                </small>
+              </div>
+              <div class="form-group">
+                <label for="state">State</label>
+                <input
+                  type="text"
+                  placeholder="State"
+                  formControlName="state"
+                  class="form-control"
+                />
+                <small
+                  class="form-text text-warning"
+                  *ngIf="
+                    editForm.controls.state.touched &&
+                    editForm.controls.state.errors?.required
+                  "
+                  >Please enter State .!
+                </small>
+                <small
+                  class="form-text text-danger"
+                  *ngIf="
+                    editForm.controls.state.touched &&
+                    editForm.controls.state.value > 0 &&
+                    editForm.controls.state.invalid
+                  "
+                >
+                  Please enter valid state. !
+                </small>
+              </div>
+              <div class="form-group">
+                <label for="country">Country</label>
+                <input
+                  type="text"
+                  placeholder="Country"
+                  formControlName="country"
+                  class="form-control"
+                />
+                <small
+                  class="form-text text-warning"
+                  *ngIf="
+                    editForm.controls.country.touched &&
+                    editForm.controls.country.errors?.required
+                  "
+                  >Please enter Country .!
+                </small>
+                <small
+                  class="form-text text-danger"
+                  *ngIf="
+                    editForm.controls.countrytouched &&
+                    editForm.controls.country.value > 0 &&
+                    editForm.controls.country.invalid
+                  "
+                >
+                  Please enter valid country. !
+                </small>
+              </div>
+            </fieldset>
+            <div class="form-group">
+              <label>Package</label>
+              <select formControlName="packages" class="custom-select mb-3">
+                <option disabled>Choose your package</option>
+                <option *ngFor="let package of packages" [value]="package.packageCost">
+                  {{ package.packageName }}
+                </option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="inr">Inr</label>
+              <input
+                type="text"
+                class="form-control"
+                formControlName="inr"
+                readonly
+              />
+            </div>
+            <div class="form-group">
+              <label for="paisa">Paisa</label>
+              <input
+                type="text"
+                class="form-control"
+                formControlName="paisa"
+                readonly
+              />
+            </div>
+            <fieldset class="border p-2">
+              <legend class="w-auto">Trainer Preference</legend>
+              <div class="custom-control custom-radio custom-control-inline">
+                <input
+                  formControlName="trainerpreference"
+                  type="radio"
+                  id="male"
+                  name="trainerpreference"
+                  class="custom-control-input"
+                  value="male"
+                />
+                <label class="custom-control-label" for="male">Male</label>
+              </div>
+              <div class="custom-control custom-radio custom-control-inline">
+                <input
+                  formControlName="trainerpreference"
+                  type="radio"
+                  id="female"
+                  name="trainerpreference"
+                  class="custom-control-input"
+                  value="female"
+                />
+                <label class="custom-control-label" for="female">Female</label>
+              </div>
+            </fieldset>
+            <fieldset class="border p-2">
+              <legend class="w-auto">Physiotherapist</legend>
+              <div class="custom-control custom-radio custom-control-inline">
+                <input
+                  type="radio"
+                  formControlName="physiotherapist"
+                  id="yes"
+                  name="physiotherapist"
+                  class="custom-control-input"
+                  value="yes"
+                />
+                <label class="custom-control-label" for="yes">Yes</label>
+              </div>
+              <div class="custom-control custom-radio custom-control-inline">
+                <input
+                  formControlName="physiotherapist"
+                  type="radio"
+                  id="no"
+                  name="physiotherapist"
+                  class="custom-control-input"
+                  value="no"
+                />
+                <label class="custom-control-label" for="no">No</label>
+              </div>
+            </fieldset>
+            <div class="mt-2">
+              <button
+                class="btn btn-block btn-primary"
+                (click)="updateData()"
+                [disabled]="editForm.invalid"
+                type="submit"
+              >
+                Update Data
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

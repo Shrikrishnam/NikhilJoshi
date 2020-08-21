@@ -1,0 +1,78 @@
+<div class="logo">
+  <img src="../assets/images/logo.png" alt="Fitness Appointment" />
+</div>
+<nav class="navbar navbar-expand-sm bg-light navbar-light">
+  <ul class="navbar-nav myUl">
+    <li class="nav-item">
+      <button
+        (click)="landingpage()"
+        class="btn btn-block btn-lg btn-outline-info nav-btn"
+      >
+        <i class="fas fa-home nav-i"></i>Home
+      </button>
+    </li>
+    <li class="nav-item">
+      <button
+        (click)="placeAppointment()"
+        class="btn btn-block btn-lg btn-outline-info nav-btn"
+      >
+        <i class="fas fa-user-plus nav-i"></i>Place App
+      </button>
+    </li>
+    <li class="nav-item">
+      <button
+        (click)="viewAppointment()"
+        class="btn btn-block btn-lg btn-outline-info nav-btn"
+      >
+        <i class="far fa-eye nav-i"></i>View App
+      </button>
+    </li>
+    <li class="nav-item">
+      <button class="btn btn-block btn-lg btn-outline-info nav-btn">
+        <i class="fas fa-search nav-i"></i>Search
+      </button>
+    </li>
+    <li class="nav-item">
+      <button
+        (click)="contactUspage()"
+        class="btn btn-block btn-lg btn-outline-info nav-btn"
+      >
+        <i class="fas fa-id-card-alt nav-i"></i>Contact Us
+      </button>
+    </li>
+  </ul>
+</nav>
+<div class="sidenav"></div>
+
+<div class="" id="wrap">
+  <div class="sidebar bg-light border-dark">
+    <ul>
+      <li>
+        <a (click)="landingpage()" class="btn btn-lg">
+          <i class="fas fa-home nav-i"></i>Home
+        </a>
+      </li>
+      <li>
+        <a (click)="placeAppointment()" class="btn btn-lg">
+          <i class="fas fa-user-plus nav-i"></i>Place App
+        </a>
+      </li>
+      <li>
+        <a (click)="viewAppointment()" class="btn btn-lg">
+          <i class="far fa-eye nav-i"></i>View App
+        </a>
+      </li>
+      <li>
+        <a class="btn btn-lg nav-i"> <i class="fas fa-search"></i>Search </a>
+      </li>
+      <li>
+        <a (click)="contactUspage()" class="btn btn-lg">
+          <i class="fas fa-id-card-alt nav-i"></i>Contact Us
+        </a>
+      </li>
+    </ul>
+  </div>
+  <div class="wrap">
+    <router-outlet></router-outlet>
+  </div>
+</div>

@@ -1,0 +1,47 @@
+/* You can add global styles to this file, and also import other style files */
+/* You can add global styles to this file, and also import other style files */
+.sidebar {
+    width: 20%;
+    overflow: auto;
+    float: left;
+    height: 100%;
+  }
+  .sidebar .a {
+    margin-bottom: 20px;
+  }
+  .introtext {
+    text-align: justify;
+    margin-left: 10px;
+  }
+  ul {
+    list-style-type: none;
+  }
+  
+  td th {
+    text-align: center;
+  }
+  @media screen and (max-width: 700px) {
+    .sidebar {
+      width: 30%;
+      position: relative;
+    }
+    .sidebar a {
+      float: left;
+      text-align: left;
+    }
+  }
+  .wrap {
+    margin-left: 10px;
+    width: 75%;
+    overflow: hidden;
+  }
+  #wrap {
+    height: 100%;
+  }
+  .nav-i {
+    margin-right: 5px;
+  }
+  .header-text
+  {
+    font-size: 15px !important;
+  }
